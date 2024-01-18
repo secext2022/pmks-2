@@ -1,6 +1,18 @@
 # 香橙派安装 adguardhome (docker)
 
-本文主要内容: 在香橙派 zero3 (1GB) 上安装 DNS 服务器 (adguardhome) 的过程.
+本文主要内容: 在香橙派 zero3 (1GB) 上安装 adguardhome 的过程.
+
+adguardhome 作为一个 DNS 服务器, 安装简单, 配置方便,
+界面美观 (web), 可以加速上网.
+
+adguardhome 虽然不需要太多计算存储资源, 但还是需要那么一点的.
+常见的 OpenWrt 路由器的存储空间往往太小 (比如 256MB RAM, 128MB flash),
+运行 adguardhome 有点吃力.
+如果使用 x86 计算机, 又太贵太费电了.
+
+相比之下, 香橙派便宜 (不到 100 元) 又省电, 性能也足够, 是个很好的选择.
+在多种安装方式之中, docker 差不多是最简单方便的一种,
+所以选择使用 docker 安装.
 
 
 ## 目录
@@ -20,7 +32,7 @@
 
 操作系统: Debian 12 (官方镜像, Linux 6.1)
 
-安装操作系统此处不详细描述, 请见官方文档.
+如何安装操作系统此处不详细描述, 请见官方文档.
 
 <http://www.orangepi.cn/html/hardWare/computerAndMicrocontrollers/details/Orange-Pi-Zero-3.html>
 
@@ -149,7 +161,7 @@ CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 
 ## 3 使用 docker 安装 adguardhome
 
-+ docker 镜像默认已经配置好了:
++ docker 镜像默认已经配置好了 (很贴心 ~):
 
   ```
   orangepi@orangepizero3 ~> cat /etc/docker/daemon.json
@@ -181,6 +193,8 @@ CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
   > sudo mkdir -p /opt/adguardhome/work
   ```
 
+  注意: 这两个目录放在哪里都可以, 此处只是举个栗子.
+
 + (3) 禁用 dnsmasq 服务:
 
   ```
@@ -206,6 +220,9 @@ CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
   -d adguard/adguardhome
   ```
 
+  注意: 容器的名称 (`--name adguardhome`) 也是随意设置,
+  此处只是举个栗子.
+
 + 查看运行中的实例:
 
   ```
@@ -219,15 +236,54 @@ CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 
   访问 `http://192.168.1.2:3000`
 
-  TODO
+  ![初始化界面 (1)](./图/4-init-1.png)
+
+  把语言改成 `简体中文`, 点击下一步:
+
+  ![初始化界面 (2)](./图/4-init-3.png)
+
+  保持默认即可, 下一步:
+
+  ![初始化界面 (3)](./图/4-init-4.png)
+
+  设置登录密码, 用户名随意设置.
+
+  ![初始化界面 (4)](./图/4-init-5.png)
+
+  下一步.
+
+  ![初始化界面 (5)](./图/4-init-6.png)
+
+  进入登录界面:
+
+  ![登录界面](./图/4-login-1.png)
+
+  主界面:
+
+  ![主界面](./图/4-main-1.png)
 
 + (2) 配置屏蔽域名.
 
   此处以 `www.baidu.com` 举例:
 
-  TODO
+  ![配置 (1)](./图/4-conf-1.png)
+
+  切换到 `DNS 重写` 界面:
+
+  ![配置 (2)](./图/4-conf-2.png)
+
+  点击 `添加 DNS 重写`, 填写参数如图, 点击 `保存`:
+
+  ![配置 (3)](./图/4-conf-3.png)
 
 + (3) 测试配置:
+
+  首先, 把设备的 DNS 服务器设置为香橙派的 IP 地址, 比如:
+
+  ![设置 DNS (1)](./图/4-test-1.png)
+  ![设置 DNS (2)](./图/4-test-2.png)
+
+  然后:
 
   ```
   > ping www.baidu.com
@@ -236,6 +292,8 @@ CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
   64 字节，来自 localhost (127.0.0.1): icmp_seq=2 ttl=64 时间=0.120 毫秒
   64 字节，来自 localhost (127.0.0.1): icmp_seq=3 ttl=64 时间=0.138 毫秒
   ```
+
+  ![ping 测试](./图/0-ping-baidu.png)
 
   ```
   > dig www.baidu.com
@@ -260,4 +318,6 @@ CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 
   可以看到, 配置已经生效了.
 
-TODO
+----
+
+本文使用 CC-BY-SA 4.0 许可发布.

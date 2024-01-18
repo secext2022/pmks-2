@@ -1,4 +1,4 @@
-# N
+# 20240119-5
 
 标题:
 **香橙派安装 adguardhome (docker)**
@@ -10,7 +10,9 @@
 
 ## 图文版
 
-[尚未发布](./a.md): (0)
+[已发布](./a.md): (1)
+
++ <https://zhuanlan.zhihu.com/p/678625616>
 
 TODO
 
