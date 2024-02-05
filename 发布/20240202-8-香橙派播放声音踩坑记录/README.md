@@ -12,6 +12,9 @@ Orange pi, 踩坑
 
 ## 图文版
 
-[尚未发布](./a.md): (0)
+[已发布](./a.md): (2)
+
++ <https://zhuanlan.zhihu.com/p/681095804>
++ <https://blog.csdn.net/secext2022/article/details/135993321>
 
 TODO
