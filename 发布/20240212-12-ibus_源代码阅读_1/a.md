@@ -993,4 +993,6 @@ impl IBusEngine for PmimEngine {
 
 对应的原始输入: `cbacbacbacbaqaqaqaaaa`
 
-TODO
+----
+
+本文使用 CC-BY-SA 4.0 许可发布.
