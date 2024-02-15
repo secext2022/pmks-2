@@ -80,7 +80,7 @@ GNOME 桌面环境从 3.6 版本开始直接集成了 ibus,
 
 重启, 然后就可以直接在 GNOME 设置里面设置输入法了:
 
-![GNOME 输入法设置](./图/1-gnome-1.png)
+![GNOME 输入法设置](../图/20240212-12/1-gnome-1.jpg)
 
 ### 1.2 systemd user 服务
 
@@ -241,7 +241,7 @@ ibus 的多个组件, 分别作为一个进程启动.
 比如 `ibus-engine-libpinyin` 就是一个拼音输入法.
 多个进程之间使用 D-Bus 通信.
 
-![ibus 架构图](./图/1-a-1.png)
+![ibus 架构图](../图/20240212-12/1-a-1.jpg)
 
 我们来看一下 `ibus-libpinyin` 软件包有哪些文件:
 
@@ -499,7 +499,7 @@ bustle 也有 flatpak 版: <https://flathub.org/zh-Hans/apps/org.freedesktop.Bus
 
 启动 bustle, 把 ibus 的 D-Bus 地址填进去, 开始抓包:
 
-![bustle 界面](./图/23-bustle-1.png)
+![bustle 界面](../图/20240212-12/23-bustle-1.jpg)
 
 ### 2.4 从 SetGlobalEngine 作为入口分析
 
@@ -587,7 +587,7 @@ bustle 就会抓到一条 `SetGlobalEngine` 消息.
 
 由于 C 语言代码实在太啰嗦了, 不得不跳过和省略了大量代码.
 
-![SetGlobalEngine 调用分析](./图/24-c-1.png)
+![SetGlobalEngine 调用分析](../图/20240212-12/24-c-1.jpg)
 
 通过上面的一通分析, 可以得到这样的函数调用图.
 当 ibus-daemon 收到 `SetGlobalEngine` 请求时, 首先查找对应 engine 的信息.
@@ -985,11 +985,11 @@ impl IBusEngine for PmimEngine {
 
 编译之后启动:
 
-![启动测试](./图/3-t-1.png)
+![启动测试](../图/20240212-12/3-t-1.jpg)
 
 输入测试:
 
-![输入测试](./图/3-t-2.png)
+![输入测试](../图/20240212-12/3-t-2.jpg)
 
 对应的原始输入: `cbacbacbacbaqaqaqaaaa`
 
