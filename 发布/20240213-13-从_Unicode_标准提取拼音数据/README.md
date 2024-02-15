@@ -10,10 +10,11 @@
 
 ## 图文版
 
-[已发布](./a.md): (2)
+[已发布](./a.md): (3)
 
 + <https://blog.csdn.net/secext2022/article/details/136110314>
 + <https://zhuanlan.zhihu.com/p/682228507>
++ <https://www.bilibili.com/read/cv31310500/>
 
 
 ## 修正
