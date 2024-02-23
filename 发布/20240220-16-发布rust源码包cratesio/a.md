@@ -142,15 +142,15 @@ async-io = ["zbus/async-io"]
 
 ## 2 登录 `crates.io`
 
-![crates.io](./图/2-cratesio-1.png)
+![crates.io](../图/20240220-16/2-cratesio-1.jpg)
 
 打开 `crates.io`, 点击右上角的 `Log in with GitHub` 登录.
 
-![设置](./图/2-cratesio-2.png)
+![设置](../图/20240220-16/2-cratesio-2.jpg)
 
 登录之后, 点击右上角的 `Account Settings`.
 
-![token](./图/2-cratesio-3.png)
+![token](../图/20240220-16/2-cratesio-3.jpg)
 
 点击左侧的 `API Tokens`, 然后创建一个新的 token.
 在本地运行命令:
@@ -174,11 +174,11 @@ async-io = ["zbus/async-io"]
 可能需要比较长的时间.
 编译完后就会发布了.
 
-![dashboard](./图/3-cratesio-1.png)
+![dashboard](../图/20240220-16/3-cratesio-1.jpg)
 
 发布之后就能在 `My Crates` 看到了.
 
-![详情页](./图/3-cratesio-2.png)
+![详情页](../图/20240220-16/3-cratesio-2.jpg)
 
 
 ## 4 总结与展望
