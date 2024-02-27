@@ -10,9 +10,10 @@
 
 ## 图文版
 
-[已发布](./a.md): (2)
+[已发布](./a.md): (3)
 
 + <https://blog.csdn.net/secext2022/article/details/136246340>
 + <https://zhuanlan.zhihu.com/p/683489173>
++ <https://www.bilibili.com/read/cv31912233/>
 
 TODO
