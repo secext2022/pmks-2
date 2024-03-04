@@ -30,7 +30,7 @@
   - 3.4 Android 平台的界面
   - 3.5 GNU/Linux 应用 (ibus)
   - 3.6 Android 应用
-  - 3.7 安全
+  - 3.7 安全设计
   - 3.8 输入测量
 
 + 4 总结与展望
@@ -277,12 +277,6 @@ Android 平台代码 531 行 (8.4%).
 
 ### 3.4 Android 平台的界面
 
-相关文章:
-
-+ 《Android 输入法框架简介》
-
-  TODO
-
 ![喵键盘](./图/34-pmim-m1.png)
 
 这个界面负责卖萌.
@@ -400,31 +394,558 @@ ASCII 符号键盘 (英文标点).
 
   TODO
 
-TODO
+此处选择了 ibus 输入法框架.
+
+为什么要选择 ibus 呢 ?
+因为窝使用 GNOME 桌面环境, GNOME 默认集成了 ibus, 所以使用起来比较方便.
+并且, 虽然 ibus 的拼音输入法 (ibus-libpinyin) 窝感觉不太好用,
+但是 ibus 本身多年来还是很稳的, 基本上没出过大问题.
+虽然还有 fcitx 输入法框架, 但是在 GNU/Linux 桌面环境的软件生态中,
+ibus 相对更普及一些.
+甚至 fcitx 本身也选择了兼容 ibus.
+
+ibus 本身使用 C 和 python 开发, 但是使用 D-Bus 协议连接各个组件.
+本输入法虽然使用了 ibus 输入法框架, 但是并没有对 ibus 有代码上的直接依赖,
+而是选择从 D-Bus 开始, 兼容 ibus 的协议 (艾刷 librush 模块).
+
+在 web 运行环境的选择上, 窝喜欢 chromium 浏览器内核,
+所以排除了 tauri, 选择了 electronjs.
+electronjs 更加成熟稳定, 有 vscode 这个大厂的产品做代表,
+并且 electronjs 不用自己编译, 直接拿过来就能用, 比较方便.
+在 GNU/Linux 系统上通常都有软件包管理器进行依赖管理,
+这可以抵消 electronjs 的大部分缺点.
+
+专门为 electronjs 编写的代码只有 227 行 (js).
 
 ### 3.6 Android 应用
 
 相关文章:
 
++ 《Android 输入法框架简介》
+
+  TODO
+
 + 《在 Android 运行 GNU/Linux 二进制程序 (proot)》
 
   TODO
 
-TODO
+在 Android 系统就要使用 Android 输入法框架.
+Android 应用是使用 Android Studio 创建的普通应用, 使用 kotlin 编程语言.
 
-### 3.7 安全
+在 Android 使用 WebView 显示网页是标准操作,
+也就是使用系统自带的浏览器内核 (chromium).
+在国产手机 (比如 MIUI) 上即使不 root,
+也可以通过安装 Android System WebView 这个 apk 来更新系统 WebView 内核.
+
+![Android Webview](./图/36-android-webview-1.png)
+
+注意版本号.
+
+在 apk 中打包自带一个浏览器内核, 不是做不到, 但是太麻烦了,
+并且相比系统 WebView 没有明显优点.
+
+----
+
+在 Android 运行 deno 使用了 proot.
+这样可以让拼音核心运行起来.
+
+使用 proot 并不是最好的方法, 但是可以接受, 性能并不差.
+
+### 3.7 安全设计
+
+相关文章:
+
++ 《高版本 Android 如何访问 sdcard/Android/data 目录中的文件 (翻译)》
+
+  TODO
 
 此处的安全 (security), 是指信息安全, 网络安全, 黑客攻击这方面的.
 
-事先声明, 绝对的安全是不可能实现的.
+事先声明, **绝对的安全是不可能实现的**.
 开发者能够做的, 是让一个软件合理的, 足够的安全,
 不要出现严重安全漏洞而已.
 
-TODO
+在此详细描述安全方面的设计, 是为了能够公开的对其进行检查.
+**如果发现这里有安全漏洞, 记得联系窝哦 ~~**
+
++ (1) 用户数据库的存储.
+  用户数据库保存了一部分用户输入的内容,
+  这部分是敏感数据, 需要重点保护.
+
+  用户数据库使用 deno-kv, 底层对应 sqlite 数据库.
+  <https://deno.com/kv>
+
+  - 在 GNU/Linux 平台, 用户数据库文件的位置是:
+
+    ```sh
+    > ls -l ~/.config/pmim/pmim_user.db
+    -rw-r--r-- 1 s2 s2 2977792  3月 3日 20:29 /home/s2/.config/pmim/pmim_user.db
+    ```
+
+    这位于用户的主目录中, 而用户主目录默认的权限是 `700`:
+
+    ```sh
+    > ls -ld ~
+    drwx------ 1 s2 s2 1136  3月 4日 05:28 /home/s2/
+    ```
+
+    也就是说只有用户自己可以访问.
+    所以, 在系统环境安全 (没有别的恶意软件偷偷读取这个数据库) 的前提下,
+    这个数据库文件是安全的.
+
+  ----
+
+  - 在 Android 平台, 用户数据库文件的位置是:
+    `/sdcard/Android/data/io.github.fm_elpac.pmim_apk/files/pmim/pmim_user.db`
+
+    这个是 `Android/data/包名` 目录, 只有应用自己可以访问, 别的应用无法访问.
+    所以, 在系统环境安全 (比如没有 root) 的前提下, 这个数据库文件是安全的.
+
++ (2) 拼音核心 (pmim-server) 的 HTTP 接口.
+  用户界面通过 HTTP 接口 (REST) 对拼音核心进行请求.
+
+  拼音核心对 HTTP 接口 (API) 的调用使用 token 认证,
+  对应源代码 (`pmim/server/routes/pmims_api/_middleware.ts`):
+
+  ```ts
+  // /pmims_api/* header: x-token
+  // 检查口令 (认证)
+  export async function handler(
+    req: Request,
+    ctx: FreshContext<状态>,
+  ) {
+    // 首先尝试从 headers 中获取 token
+    let token = req.headers.get(HH_TOKEN);
+    // 其次从 cookie 中获取 token
+    if (null == token) {
+      token = getCookies(req.headers)["x_token"];
+    }
+    // 检查 token 是否正确
+    if ((null == token) || (!检查口令(token))) {
+      return new Response("HTTP 403", {
+        status: 403,
+      });
+    }
+
+    return await ctx.next();
+  }
+  ```
+
+  检查口令使用定长时间的比较函数, 这是为了对抗时间侧信道的攻击,
+  对应源代码 (`pmim/server/pmims/auth/token.ts`):
+
+  ```ts
+  import { timingSafeEqual } from "$std/crypto/timing_safe_equal.ts";
+
+  // 内存中保存的口令
+  const etc = {
+    口令: new Uint8Array(),
+  };
+
+  export function 检查口令(t: string): boolean {
+    const d = new TextEncoder().encode(t);
+    return timingSafeEqual(d, etc.口令);
+  }
+  ```
+
+  token 使用真随机数据生成, 对应源代码 (`pmim/server/pmims/auth/token.ts`):
+
+  ```ts
+  async function 获取随机数据(): Promise<string> {
+    // 64 Byte, 512bit 随机数据
+    const a = new Uint8Array(64);
+    crypto.getRandomValues(a);
+
+    // base64(sha256())
+    const h = await crypto.subtle.digest("SHA-256", a);
+    return encodeBase64(h);
+  }
+
+  export function 口令文件路径(): string {
+    const 目录 = Deno.env.get(ENV_XDG_RUNTIME_DIR)!;
+    return join(目录, FP_TOKEN);
+  }
+
+  export async function 初始化口令() {
+    const 口令文件 = 口令文件路径();
+    logi(" token: " + 口令文件);
+
+    const 口令 = await 获取随机数据();
+    // 存储口令
+    etc.口令 = new TextEncoder().encode(口令);
+
+    await 建上级目录(口令文件);
+    await Deno.writeTextFile(口令文件, 口令);
+  }
+  ```
+
+  此处使用的是 Web Crypto API <https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API>.
+
+  同时, 拼音核心只监听 `127.0.0.1` IP 地址,
+  这意味着只有本机的程序可以连接.
+  对应源代码 (`pmim/server/pmims/conf.ts`):
+
+  ```ts
+  export const 监听地址 = "127.0.0.1";
+  ```
+
+  源代码 (`pmim/server/fresh.config.ts`):
+
+  ```ts
+  export default function getConfig() {
+    return defineConfig({
+      plugins: [tailwind()],
+
+      server: {
+        port: 获取端口(),
+        hostname: 监听地址,
+        onListen,
+      },
+    });
+  }
+  ```
+
+  ----
+
+  - 在 GNU/Linux 平台, 口令文件的存储位置是:
+
+    ```sh
+    > ls -l $XDG_RUNTIME_DIR/pmim/server_token
+    -rw-r--r-- 1 s2 s2 44  3月 3日 22:27 /run/user/1000/pmim/server_token
+    ```
+
+    而 `XDG_RUNTIME_DIR` 的默认权限是 `700`:
+
+    ```sh
+    > ls -ld $XDG_RUNTIME_DIR
+    drwx------ 19 s2 s2 660  3月 4日 06:21 /run/user/1000/
+    ```
+
+    同样的, 只有用户自己可以访问.
+
+    electronjs 读取口令文件的源代码是 (`pmim-ibus/electronjs/main.js`):
+
+    ```js
+    // 读取 deno/fresh server http token
+    async function read_token() {
+      const xrd = process.env["XDG_RUNTIME_DIR"];
+      const 口令文件 = path.join(xrd, "pmim/server_token");
+      logi(" read token: " + 口令文件);
+
+      return await readFile(口令文件, { encoding: "utf8" });
+    }
+    ```
+
+  ----
+
+  - 在 Android 平台, 口令文件的存储位置是:
+    `/sdcard/Android/data/io.github.fm_elpac.pmim_apk/files/pmim/server_token`
+
+    同样的, 只有应用自己可以访问.
+
+    WebView 中的页面读取口令文件的源代码是 (`pmim-apk/p/app/src/main/java/io/github/fm_elpac/pmim_apk/im/ImView.kt`):
+
+    ```kotlin
+    // 读取 pmim-server 的口令
+    @JavascriptInterface
+    fun pm_口令(): String {
+      // /storage/emulated/0/Android/data/io.github.fm_elpac.pmim_apk/files/pmim/server_token
+      val 外部文件目录 = p.getExternalFilesDir(null)!!
+      val 口令文件 = File(外部文件目录, "pmim/server_token")
+      println("ImView: 口令文件 " + 口令文件.getAbsolutePath())
+
+      return 口令文件.readText()
+    }
+    ```
+
+  ----
+
+  上述这套机制实现了:
+
+  - (1) 每次启动后都重新生成足够长的随机 token.
+  - (2) 只有本机的应用 (`127.0.0.1`) 才可能请求核心的 HTTP 接口.
+  - (3) (GNU/Linux) 只有用户自己的应用 (能够读取口令文件)
+    才可以请求核心的接口.
+    本机别的用户无法访问.
+  - (4) (Android) 只有应用自己才可以请求核心的接口.
+    本机别的应用无法访问.
+
+----
+
++ (3) 艾刷与拼音核心之间的通信 (仅适用于 GNU/Linux 平台).
+
+  艾刷与拼音核心之间使用 UNIX socket,
+  对应的文件路径是:
+
+  ```sh
+  > ls -l $XDG_RUNTIME_DIR/pmim/us
+  srwxr-xr-x 1 s2 s2 0  3月 3日 22:27 /run/user/1000/pmim/us=
+  ```
+
+  同样的, 只有用户自己可以访问.
+
+----
+
+未来, 还可以考虑使用 deno 权限, flatpak 沙箱 (sandbox) 等安全机制,
+进一步增强应用的安全性 (比如完全禁止网络访问).
 
 ### 3.8 输入测量
 
-TODO
+俗话说, 没有测量就没有发言权.
+拼音输入法使用 web 技术 (JavaScript) 开发, 性能会不会很差 ?
+
+拼音核心实现了对输入的简单测量功能.
+本章节来回答这些问题.
+
+输入测量功能实现了对输入字数, 候选项序号,
+核心的拼音切分和拼音转汉字的响应时间等的统计.
+每分钟产生一条测量数据.
+
+测量方法, 比如拼音核心的响应时间对应源代码
+(`pmim-ibus/ui-vue/src/输入/输入.js`):
+
+```js
+  // 调用接口进行拼音切分
+  async _拼音切分(新) {
+    // 输入测量
+    const d1 = new Date();
+    const r1 = await pm_pin_yin(新);
+    const d2 = new Date();
+    this._mt_pin_yin.push(测量时间(d1, d2));
+
+// 省略
+
+// 测量时间 (Date) 返回 ms
+function 测量时间(d1, d2) {
+  return d2.getTime() - d1.getTime();
+}
+```
+
+使用 js 内置的 `Date` 进行时间测量, 精度在毫秒级别.
+
+----
+
+输入测量接口的原始数据类似这样 (有省略):
+
+```json
+> curl -H x-token:(cat /run/user/1000/pmim/server_token) -X POST http://127.0.0.1:20200/pmims_api/m -d '{"d": "2024-03-03"}' | jq '.'
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 37051  100 37032  100    19   789k    414 --:--:-- --:--:-- --:--:--  804k
+{
+  "2024-03-03": {
+    "分钟": 144,
+    "统计": {
+      "c.c": 1347,
+      "c.c/m": 1,
+      "c.c/M": 25,
+      "c.n": 1347,
+      "c.n/m": 1,
+      "c.n/M": 25,
+      "c.t": 2498,
+      "c.t/m": 1,
+      "c.t/M": 48,
+      "c.t_M": 4,
+      "c.t_m": 1,
+      "i.c": 256,
+      "i.c/m": 0,
+      "i.c/M": 24,
+      "i.c1": 74,
+      "i.c1/m": 0,
+      "i.c1/M": 12,
+      "i.c1_M": 12,
+      "i.c1_m": 0,
+      "i.c1_n": 1279,
+      "i.c1_n/m": 1,
+      "i.c1_n/M": 24,
+      "i.c_M": 13,
+      "i.c_m": 0,
+      "i.cn": 182,
+      "i.cn/m": 0,
+      "i.cn/M": 24,
+      "i.cn_M": 13,
+      "i.cn_m": 0,
+      "i.cn_n": 141,
+      "i.cn_n/m": 2,
+      "i.cn_n/M": 11,
+      "i.n": 1420,
+      "i.n/m": 1,
+      "i.n/M": 27,
+      "i.n_M": 3,
+      "i.n_m": 1,
+      "t.c": 69075,
+      "t.c/m": 13,
+      "t.c/M": 1631,
+      "t.c_M": 228,
+      "t.c_m": 4,
+      "t.c_n": 2613,
+      "t.c_n/m": 1,
+      "t.c_n/M": 50,
+      "t.p": 96648,
+      "t.p/m": 25,
+      "t.p/M": 2021,
+      "t.p_M": 112,
+      "t.p_m": 3,
+      "t.p_n": 5092,
+      "t.p_n/m": 2,
+      "t.p_n/M": 96
+    },
+    "平均": {
+      "c.n": 9.354166666666666,
+      "c.c": 9.354166666666666,
+      "c.t": 17.34722222222222,
+      "i.n": 1.0541945063103193,
+      "i.c": 0.18028169014084508,
+      "i.c1": 0.05785770132916341,
+      "i.cn": 1.2907801418439717,
+      "t.p": 18.98036135113904,
+      "t.c": 26.435132032146957
+    },
+    "数据": {
+      "1326": {
+        "c.c": 14,
+        "c.n": 14,
+        "c.t": 24,
+        "c.t_M": 2,
+        "c.t_m": 1,
+        "i.c": 3,
+        "i.c1": 0,
+        "i.c1_M": 0,
+        "i.c1_m": 0,
+        "i.c1_n": 13,
+        "i.c_M": 3,
+        "i.c_m": 0,
+        "i.cn": 3,
+        "i.cn_M": 3,
+        "i.cn_m": 0,
+        "i.cn_n": 2,
+        "i.n": 15,
+        "i.n_M": 2,
+        "i.n_m": 1,
+        "t.c": 569,
+        "t.c_M": 47,
+        "t.c_m": 6,
+        "t.c_n": 25,
+        "t.p": 860,
+        "t.p_M": 97,
+        "t.p_m": 4,
+        "t.p_n": 48
+      },
+      "1352": {
+        "c.c": 2,
+        "c.n": 2,
+        "c.t": 2,
+        "c.t_M": 1,
+        "c.t_m": 1,
+        "i.c": 0,
+        "i.c1": 0,
+        "i.c1_M": 0,
+        "i.c1_m": 0,
+        "i.c1_n": 2,
+        "i.c_M": 0,
+        "i.c_m": 0,
+        "i.n": 2,
+        "i.n_M": 1,
+        "i.n_m": 1,
+        "t.c": 32,
+        "t.c_M": 21,
+        "t.c_m": 11,
+        "t.c_n": 2,
+        "t.p": 129,
+        "t.p_M": 58,
+        "t.p_m": 11,
+        "t.p_n": 4
+      },
+```
+
+调用接口可以对某一天的测量数据进行统计.
+其中 `分钟` 是指多少分钟内有输入, 因为每分钟产生一条测量数据,
+如果这一分钟之内没有进行输入, 就没有对应的测量数据.
+`统计` 是对一天的所有数据进行分项累计.
+`平均` 是一天之内的平均值.
+`数据` 就是列出所有的原始测量数据, 每分钟一条.
+
+此处的统计分析功能很简单, 但是因为以 JSON 格式输出了原始测量数据,
+可以很容易的将数据导出,
+然后使用更强大的工具 (比如 python) 进行统计分析.
+
+----
+
+窝这边最近几天的输入测量数据如下表 (GNU/Linux 平台, ibus):
+
+| 日期 | 分钟 | 字数 | 拼音切分 | 拼音转汉字 | 候选项 |
+| :--- | ---: | ---: | -------: | ---------: | -----: |
+| 2024-02-24 | 119 | 1284 | 22.7 | 38.1 | 0 |
+| 2024-02-25 | 29 | 305 | 21.4 | 38.7 | 0.414 |
+| 2024-02-26 | 46 | 448 | 20.7 | 33.8 | 0.121 |
+| 2024-02-27 | 112 | 1798 | 20.1 | 33.6 | 0.264 |
+| 2024-02-28 | 236 | 1887 | 19.5 | 26.8 | 0.112 |
+| 2024-02-29 | 228 | 2647 | 20.1 | 24.6 | 0.075 |
+| 2024-03-01 | 30 | 162 | 20.5 | 33.1 | 0.014 |
+| 2024-03-02 | 25 | 273 | 18.3 | 24.5 | 0.084 |
+| 2024-03-03 | 144 | 2498 | 19.0 | 26.5 | 0.181 |
+| 2024-03-04* | 132 | 2337 | 17.4 | 25.0 | 0.211 |
+
+注:
+
++ `日期`: 测量数据对应的日期 (收集全部 24 小时).
+
++ `分钟`: 在多少分钟内有输入 (每分钟产生一条测量数据).
+
++ `字数`: 输入的总字数.
+
++ `拼音切分` (ms): 核心进行一次拼音切分的平均响应时间.
+
++ `拼音转汉字` (ms):
+  核心进行一次拼音转汉字 (查询候选项) 的平均响应时间.
+
++ `候选项`: 平均候选项序号.
+
+  输入时选择的候选项的序号 (从 0 开始) 的平均值.
+
++ `*`: 当天的数据并不完整.
+
+----
+
+很明显, 输入测量功能是 `2024-02-24` 开发完成的,
+所以并没有之前的数据.
+这些是最近几天窝在真实使用场景之下获得的测量数据,
+比如写这篇文章.
+
+拼音切分的平均时间基本稳定在大约 20 毫秒.
+拼音转汉字后来进行了一点优化, 时间有所下降,
+目前稳定在大约 30 毫秒.
+这个性能并不算好, 因为如果应用要达到 60fps 的帧率,
+每一帧的时间只有 16.6ms.
+
+但是这是一个可以接受的性能.
+因为一般人的击键速度难以超过每秒 10 次,
+所以 100ms 以内的响应时间是可以接受的.
+并且这是在一个性能并不算好的硬件上获得的结果,
+窝使用的是 9 年前的破旧笔记本 (CPU i5-6200U).
+在更新的硬件上可能会获得更好的结果.
+
+![击键速度测试](./图/38-kpm-1.png)
+
+这是窝随手做的一个击键速度测试 (英文),
+最高击键速度每秒 9 次, 每分钟 314 次 (平均 5.2 次/秒).
+
+----
+
+平均候选项序号, 这个最理想的情况下是 0,
+意味着每次输入的候选项都是第一项.
+目前这个值大约在 0.1 ~ 0.2 之间,
+也就是说大部分输入 (80%) 的候选项是第一项.
+这说明输入法核心的性能并不算很差.
+
+目前使用输入法的时间并不长, 用户数据还没有足够的积累.
+后续随着不断的使用, 这个值会逐渐下降的.
+
+![Android 内存占用](./图/38-r-1.png)
+
+这是在一只几年前的旧手机上的运行情况,
+内存和存储的占用都在可接受的范围内.
+主观感受也能流畅运行.
 
 
 ## 4 总结与展望
@@ -433,8 +954,37 @@ TODO
 
 图片标题: 《拼 2024: 方圆之间, 刺破命运》
 
-TODO
+本文实现了一个简单的多平台拼音输入法,
+支持 GNU/Linux (ibus) 平台 (PC), 和 Android 平台 (手机).
+这个输入法的完整源代码只有几千行,
+开发这个输入法也只用了十几天的时间.
 
-+ 《》
+开发这个拼音输入法主要有两个目的:
 
-  TODO
++ (1) 自用.
+  目前这个拼音输入法已经覆盖了窝日常使用的所有设备,
+  包括一个笔记本 (ArchLinux),
+  以及 3 只手机 (Android 10, Android 11, Android 12).
+  从此, 窝就可以只使用自己的拼音输入法啦 ~
+
++ (2) 用于科普拼音输入法的工作原理.
+
+本输入法基于 web 技术开发, 主要编程语言为 JavaScript,
+具有低成本, 快速开发, 跨平台, 低门槛等优点.
+经过实际测量, web 技术的性能并不差, 完全可以接受.
+
+输入法需要处理用户输入的敏感数据, 在安全方面需要格外注意.
+本文对本输入法的安全设计进行了详细描述.
+
+这个输入法在技术上和功能上都十分简单 (简陋),
+拼音核心只使用了最简单的查表法.
+但是是可以实际使用的, 比如写这篇文章.
+
+对穷人来说, 便宜, 能用, 就是好.
+
+后续在技术升级方面, 计划一步到位:
+使用本地运行的语言大模型.
+
+----
+
+本文使用 CC-BY-SA 4.0 许可发布.
