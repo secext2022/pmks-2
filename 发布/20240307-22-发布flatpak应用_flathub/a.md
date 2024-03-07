@@ -622,6 +622,7 @@ flathub 只能显示英文, 再次差评.
 ```sh
 > flatpak install flathub io.github.fm_elpac.pmim_ibus
 ```
+
 ![安装应用](./图/5-install-2.png)
 
 运行应用:
