@@ -151,4 +151,6 @@ TODO
 11 天后获得了最初可用版本 (GNU/Linux, ibus).
 然后支持 Android 又用了几天时间.
 
-TODO
+----
+
+本文使用 CC-BY-SA 4.0 许可发布.
