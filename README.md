@@ -46,23 +46,17 @@ up 词典:
 + 哔哩哔哩 (b 站)
   <https://space.bilibili.com/3493138408671340>
 
-+ 简书
-  <https://www.jianshu.com/u/150dd595e0fd>
++ 知乎
+  <https://www.zhihu.com/people/54-73-63-55-35>
 
 + 小红书
   <https://www.xiaohongshu.com/user/profile/63ee9978000000001001ead2>
-
-+ 知乎
-  <https://www.zhihu.com/people/54-73-63-55-35>
 
 + 西瓜视频
   <https://www.ixigua.com/home/1231053462703159>
 
 + 微博
   <https://weibo.com/u/7821873519>
-
-+ csdn
-  <https://blog.csdn.net/secext2022>
 
 ![穷人小水滴 logo v2](./logo/p-logo-v2-256.png)
 

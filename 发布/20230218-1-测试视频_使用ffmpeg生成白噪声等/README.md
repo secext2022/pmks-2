@@ -102,16 +102,24 @@ mdhd_Duration                            : 12011
 
 ## 图文版
 
-[已发布](./a.md): (4)
+[已发布](./a.md): (5)
 
 + <https://www.bilibili.com/opus/763947155985530901>
 + <https://www.jianshu.com/p/f8083d3c22b9>
 + <https://zhuanlan.zhihu.com/p/607450382>
 + <https://blog.csdn.net/secext2022/article/details/129103000>
-
++ <https://juejin.cn/post/7343902139821359140>
 
 ## 补充
 
 + 用 "真" 随机数据生成 白噪声:
 
   `ffmpeg -f u16le -ar 44100 -ac 1 -t 10s -i /dev/urandom 2.wav`
+
+----
+
+同步: 最近刚来掘金平台, 计划将自己之前在别的地方发的文章搬运 (同步) 过来.
+
+首发日期 `2023-02-18`, 以下为原文内容.
+
+----
