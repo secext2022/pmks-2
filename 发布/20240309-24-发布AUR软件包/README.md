@@ -10,9 +10,10 @@
 
 ## 图文版
 
-[已发布](./a.md): (2)
+[已发布](./a.md): (3)
 
 + <https://zhuanlan.zhihu.com/p/686059329>
 + <https://juejin.cn/post/7344245471349096460>
++ <https://www.bilibili.com/read/cv33089622/>
 
 TODO
