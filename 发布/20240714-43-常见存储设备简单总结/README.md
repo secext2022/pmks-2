@@ -10,7 +10,7 @@
 
 ## 图文版
 
-[已发布](./a.md): (3)
+[已发布](./a.md): (4)
 
 + <https://zhuanlan.zhihu.com/p/708774629>
 
@@ -23,5 +23,7 @@
 首发日期 `2024-07-14`, 以下为原文内容:
 
 ----
+
++ <https://blog.csdn.net/secext2022/article/details/140558183>
 
 TODO
