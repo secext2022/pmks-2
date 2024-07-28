@@ -27,3 +27,31 @@
 + <https://blog.csdn.net/secext2022/article/details/140583910>
 
 TODO
+
+
+## 更新
+
++ `2024-07-26` (泡水 7 天后) 测试正常 (读取速度正常, 数据完好).
+
+  泡水时间: `2024-07-18`
+
+  测试记录:
+
+  ```sh
+  > dd if=/dev/sr0 of=/dev/null status=progress
+  1161150976 字节 (1.2 GB, 1.1 GiB) 已复制，113 s，10.3 MB/s 
+  输入了 2291776+0 块记录
+  输出了 2291776+0 块记录
+  1173389312 字节 (1.2 GB, 1.1 GiB) 已复制，113.951 s，10.3 MB/s
+  > sha256sum /dev/sr0
+  398dceea2d04767fbb8b61a9e824f2c8f5eacf62b2cb5006fd63321d978d48bc  /dev/sr0
+  > dd if=/dev/sr0 of=/dev/null status=progress
+  1169539584 字节 (1.2 GB, 1.1 GiB) 已复制，117 s，10.0 MB/s
+  输入了 2291776+0 块记录
+  输出了 2291776+0 块记录
+  1173389312 字节 (1.2 GB, 1.1 GiB) 已复制，117.335 s，10.0 MB/s
+  > sha256sum /dev/sr0
+  398dceea2d04767fbb8b61a9e824f2c8f5eacf62b2cb5006fd63321d978d48bc  /dev/sr0
+  ```
+
+TODO
