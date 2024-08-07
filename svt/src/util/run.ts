@@ -1,6 +1,27 @@
 // 运行命令, 获取结果
 
 /**
+ * 执行一条命令.
+ *
+ * 检查退出码, 如果不为 0, 抛出错误.
+ */
+export async function 运行(命令: Array<string>) {
+  console.log("  运行: " + 命令.join(" "));
+
+  const c = new Deno.Command(命令[0], {
+    args: 命令.slice(1),
+    stdin: "null",
+    stdout: "inherit",
+    stderr: "inherit",
+  });
+  const p = c.spawn();
+  const { code } = await p.status;
+  if (0 != code) {
+    throw new Error("exit code " + code);
+  }
+}
+
+/**
  * 执行一条命令, 返回标准输出的内容.
  *
  * 检查退出码, 如果不为 0, 抛出错误.

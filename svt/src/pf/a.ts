@@ -2,6 +2,7 @@
 import { join } from "@std/path";
 
 import { 加载器, 字幕, 时间至秒, 源文件, 秒至时间 } from "../api/mod.ts";
+import { 合并音频, 文件项 } from "../util/ffmpeg.ts";
 import { 根目录 } from "./mod.ts";
 
 export interface 配音参数 {
@@ -32,22 +33,6 @@ export function 配音(参数: 配音参数): 配音结果 {
   return {
     参数,
   };
-}
-
-export interface 渲染参数 {
-  采样率: number;
-  /**
-   * 输出的音频文件
-   */
-  输出: 源文件;
-  /**
-   * 输出的字幕文件
-   */
-  字幕: 源文件;
-  /**
-   * 临时目录
-   */
-  临时: 加载器;
 }
 
 interface 字幕项 {
@@ -172,6 +157,22 @@ class 缓存 {
   }
 }
 
+export interface 渲染参数 {
+  采样率: number;
+  /**
+   * 输出的音频文件
+   */
+  输出: 源文件;
+  /**
+   * 输出的字幕文件
+   */
+  字幕: 源文件;
+  /**
+   * 临时目录
+   */
+  临时: 加载器;
+}
+
 /**
  * 渲染生成音频和字幕
  */
@@ -189,5 +190,14 @@ export async function 渲染音频(输入: 配音结果, 参数: 渲染参数) {
   console.log(路径);
   await Deno.writeTextFile(路径, srt);
 
-  // TODO
+  // 输出合成的音频文件
+  const 文件列表: Array<文件项> = [];
+  const 音频目录 = c.路径(输入.参数.音频目录.路径());
+  for (let i = 0; i < 字幕稿.length; i += 1) {
+    文件列表.push({
+      路径: join(音频目录, 音频列表[i].文件),
+      时间: 字幕稿[i].时间,
+    });
+  }
+  await 合并音频(文件列表, c.路径(参数.输出.位置));
 }
