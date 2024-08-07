@@ -6,7 +6,7 @@ import { 加载缓存 } from "./load.ts";
 import { 创建过滤器 } from "./fs.ts";
 
 // 获取根目录
-function 根目录(): string {
+export function 根目录(): string {
   return Deno.env.get("SVT_ROOT") || ".";
 }
 

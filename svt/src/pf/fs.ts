@@ -5,6 +5,7 @@ import {
   帧,
   片段,
   片段类型_剪切,
+  片段类型_图片,
   片段类型_拼接,
   片段类型_空,
 } from "../api/mod.ts";
@@ -49,12 +50,29 @@ async function* 过滤器_空(
   // TODO
 }
 
+async function* 过滤器_图片(
+  视频: 片段,
+  _临时: 加载器,
+  缓存: 加载缓存,
+): 过滤器 {
+  const 帧 = {
+    类型: "img",
+    位置: 缓存.文件(视频._源!),
+  };
+  const 帧数 = 视频._a![0] as number;
+  for (let i = 0; i < 帧数; i += 1) {
+    yield 帧;
+  }
+}
+
 export function 创建过滤器(视频: 片段, 临时: 加载器, 缓存: 加载缓存): 过滤器 {
   switch (视频.类型) {
     case 片段类型_剪切:
       return 过滤器_剪切(视频, 临时, 缓存);
     case 片段类型_拼接:
       return 过滤器_拼接(视频, 临时, 缓存);
+    case 片段类型_图片:
+      return 过滤器_图片(视频, 临时, 缓存);
     case 片段类型_空:
       return 过滤器_空(视频, 临时, 缓存);
   }

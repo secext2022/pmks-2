@@ -58,6 +58,11 @@ export class 加载缓存 {
     this._r = 根目录;
   }
 
+  // 直接返回拼接路径
+  文件(源: 源文件): string {
+    return join(this._r, 源.位置);
+  }
+
   async 加载(源: 源文件): Promise<Array<帧>> {
     const c1 = this._c.get(源.类型);
     if (null != c1) {

@@ -71,6 +71,10 @@ export const 片段类型_剪切 = "剪切";
  * 由拼接产生的片段.
  */
 export const 片段类型_拼接 = "拼接";
+/**
+ * 静态图片
+ */
+export const 片段类型_图片 = "图片";
 
 /**
  * 空视频片段.
@@ -105,17 +109,17 @@ export function 音频_空(): 音频 {
 export interface 源文件 {
   类型: string;
   位置: string;
+
+  /**
+   * 定义帧率 (FPS)
+   */
+  帧率: number;
 }
 
 /**
  * 用于剪切多个片段.
  */
 export interface 批量剪切参数 {
-  /**
-   * 定义帧率 (FPS)
-   */
-  帧率: number;
-
   /**
    * 时间点.
    */
@@ -125,4 +129,27 @@ export interface 批量剪切参数 {
    * 一个片段由 2 个时间点 [开始, 结束) 构成.
    */
   片段: Record<string, [string, string]>;
+
+  /**
+   * 定义帧率 (FPS)
+   */
+  帧率?: number;
+}
+
+/**
+ * 一条字幕
+ */
+export interface 字幕 {
+  /**
+   * 开始时间 (秒)
+   */
+  开始: number;
+  /**
+   * 持续时长 (秒)
+   */
+  长度: number;
+  /**
+   * 字幕内容
+   */
+  文本: string;
 }

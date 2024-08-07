@@ -8,9 +8,11 @@ import { 源文件 } from "./t.ts";
  */
 export class 加载器 {
   _根目录: string;
+  _帧率: number;
 
   constructor(根目录: string) {
     this._根目录 = 根目录;
+    this._帧率 = 0;
   }
 
   /**
@@ -21,10 +23,19 @@ export class 加载器 {
   }
 
   /**
+   * 设置帧率
+   */
+  帧率(fps: number): 加载器 {
+    this._帧率 = fps;
+    return this;
+  }
+
+  /**
    * 获取目录 (相对路径).
    */
   目录(路径: string): 加载器 {
-    return new 加载器(join(this._根目录, 路径));
+    // 保存帧率
+    return new 加载器(join(this._根目录, 路径)).帧率(this._帧率);
   }
 
   /**
@@ -34,6 +45,7 @@ export class 加载器 {
     return {
       类型,
       位置: join(this._根目录, 路径),
+      帧率: this._帧率,
     };
   }
 }
