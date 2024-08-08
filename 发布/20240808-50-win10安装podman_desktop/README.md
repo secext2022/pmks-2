@@ -44,8 +44,25 @@ AI 配音: fish-speech
 
 视频水印位置: 右下角
 
+----
+
+硬字幕格式:
+
+```sh
+ffmpeg -i 50_out_release.mp4 -vf "subtitles=../50.srt:force_style='FontName=Noto Sans CJK SC,FontSize=24,PrimaryColour=&H00FFC057,OutlineColour=&H00FFFFFF'" 50_out_hardsrt_2.mp4
+```
+
 ### 发布情况
 
-尚未发布: (0)
+已发布: (4)
+
++ <https://www.bilibili.com/video/BV14ta9eKEin/>
+
++ <https://www.ixigua.com/7400760112647766578>
+
++ <https://www.zhihu.com/zvideo/1804998722993647618>
+
++ <https://www.xiaohongshu.com/explore/66b4d408000000001e01d24b>
+
 
 TODO
