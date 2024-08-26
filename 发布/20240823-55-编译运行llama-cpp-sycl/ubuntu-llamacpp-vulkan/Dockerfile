@@ -7,7 +7,7 @@ RUN curl -o /etc/apt/sources.list.d/lunarg-vulkan-jammy.list https://packages.lu
 RUN apt update && apt-get install -y vulkan-sdk && apt clean
 
 WORKDIR /app
-COPY llama.cpp-b3600 .
+COPY llama.cpp-b3617 .
 
 RUN cmake -B build -DGGML_VULKAN=1 -DBUILD_SHARED_LIBS=OFF && \
     cmake --build build --config Release --target llama-cli

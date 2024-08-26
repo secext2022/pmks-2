@@ -3,5 +3,4 @@
 *.tar
 *.tar.zst
 
-llama.cpp-b3600
-llama.cpp-b3038
+llama.cpp-b*

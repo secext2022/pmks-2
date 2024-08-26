@@ -22,13 +22,13 @@ Podman Desktop 是一个方便使用的图形界面.
 本视频有字幕, 如果需要请开启.
 
 ----
-
 录屏软件: OBS
 视频剪辑: ffmpeg
 AI 配音: fish-speech
 音色: 派蒙 (原神/米哈游)
 
 ----
+这里是 穷人小水滴, 专注于 穷人友好型 低成本技术. (本视频为 50 号作品. )
 
 本视频以 CC-BY-SA 4.0 许可发布.
 
@@ -51,6 +51,12 @@ AI 配音: fish-speech
 ```sh
 ffmpeg -i 50_out_release.mp4 -vf "subtitles=../50.srt:force_style='FontName=Noto Sans CJK SC,FontSize=24,PrimaryColour=&H00FFC057,OutlineColour=&H00FFFFFF'" 50_out_hardsrt_2.mp4
 ```
+
+----
+
+TODO 右下角水印: `穷人小水滴 (50)`
+
+结尾配音: 本视频为 穷人小水滴 50 号作品.
 
 ### 发布情况
 
