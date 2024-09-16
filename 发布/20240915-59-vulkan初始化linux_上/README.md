@@ -10,7 +10,7 @@
 
 ## 图文版
 
-[已发布](./a.md): (2)
+[已发布](./a.md): (4)
 
 + <https://zhuanlan.zhihu.com/p/720338911>
 
@@ -25,5 +25,9 @@
 首发日期 `2024-09-15`, 以下为原文内容:
 
 ----
+
++ <https://mp.weixin.qq.com/s?__biz=MzkyMDU4ODYwMQ==&mid=2247484277&idx=1&sn=b6257ce8d7373cf44c961af6daa37b6a&chksm=c191db23f6e652354eb1b4c44ab9d9e6d2091a1526bb55dd498bad6ba5ba61e2bad9bd5b316b&token=209548821&lang=zh_CN#rd>
+
++ <https://blog.csdn.net/secext2022/article/details/142300776>
 
 TODO
