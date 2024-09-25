@@ -11,7 +11,7 @@ GNU/Linux, Fedora CoreOS, ArchLinux
 
 ## 图文版
 
-[已发布](./a.md): (4)
+[已发布](./a.md): (5)
 
 + <https://zhuanlan.zhihu.com/p/716965631>
 
@@ -21,8 +21,6 @@ GNU/Linux, Fedora CoreOS, ArchLinux
 
 + <https://mp.weixin.qq.com/s?__biz=MzkyMDU4ODYwMQ==&mid=2247484248&idx=1&sn=e6b6864cc68835a318ba571330a617fc&chksm=c191db0ef6e6521872f56aa2f32543cbd039658fe599486f460b4d9fc2848348e5f8dabe71fc&token=669524010&lang=zh_CN#rd>
 
-----
-
 本文使用 **微信 Markdown 编辑器** 格式化发布: <https://github.com/doocs/md>
 
 ----
@@ -31,4 +29,7 @@ GNU/Linux, Fedora CoreOS, ArchLinux
 
 ----
 
-TODO
+本文使用 **Bilibili-Markdown** 工具进行格式化排版:
+<https://www.bilibili.com/read/cv18986956/>
+
++ <https://www.bilibili.com/read/cv39158435/>
