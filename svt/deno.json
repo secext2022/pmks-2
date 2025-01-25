@@ -1,0 +1,7 @@
+{
+  "exclude": ["svt_rs/target"],
+
+  "imports": {
+    "@std/path": "jsr:@std/path@^1.0.2"
+  }
+}
