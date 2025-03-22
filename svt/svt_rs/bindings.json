@@ -1,0 +1,13 @@
+{
+  "name": "svt",
+  "littleEndian": true,
+  "symbols": {
+    "add": {
+      "parameters": ["i32", "i32"],
+      "result": "i32",
+      "nonBlocking": false
+    }
+  },
+  "typeDefs": {},
+  "tsTypes": {}
+}
