@@ -10,11 +10,13 @@
 
 ## 图文版
 
-[已发布](./a.md): (1)
+[已发布](./a.md): (4)
 
 + <https://zhuanlan.zhihu.com/p/1894493753152098606>
 
-TODO
++ <https://blog.csdn.net/secext2022/article/details/147178734>
+
++ <https://juejin.cn/post/7491949045130723382>
 
 ----
 
@@ -24,7 +26,7 @@ TODO
 
 本文使用 **微信 Markdown 编辑器** 格式化发布: <https://github.com/doocs/md>
 
-TODO
++ <https://mp.weixin.qq.com/s/tkNWyTkJflXbih5266W4MQ>
 
 ----
 
