@@ -9,8 +9,10 @@
 
 + <https://bitbucket.org/secext2022a/pmks-2/>
 + <https://codeberg.org/secext2022/pmks-2>
-+ <https://gitlab.com/secext2022/pmks-2>
-
++ <https://notabug.org/secext2022/pmks-2>
++ <https://framagit.org/secext2022/pmks-2>
++ <https://git.disroot.org/secext2022/pmks-2>
++ <https://git.pub.solar/secext2022/pmks-2>
 
 **免责声明**: 本项目是开源的项目,
 不保证内容的 正确性, 有效性, 安全性.
@@ -57,14 +59,15 @@
 + 微博
   <https://weibo.com/u/7821873519>
 
-+ 小红书
-  <https://www.xiaohongshu.com/user/profile/63ee9978000000001001ead2>
-
 + 西瓜视频
   <https://www.ixigua.com/home/1231053462703159>
 
 + 掘金
   <https://juejin.cn/user/134615944418777>
+
++ 微信公众号: 穷人小水滴
+
++ CSDN
 
 ![穷人小水滴 logo v2](./logo/p-logo-v2-256.png)
 
