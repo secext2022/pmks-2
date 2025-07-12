@@ -104,3 +104,45 @@ TODO
 粉条, 豆皮 (大豆制品).
 
 TODO
+
+----
+
+彩蛋: 艾鹅计划 (ELPAC) 部分项目名称
+
+```sh
+| 正式名称 | 简易名称 | 已发布 |
+
+华丽巨蚊 () 系列 兰花螳螂 () 系统
+华丽巨蚊 () 系列 棒络新妇 () 装置
+
+黄边巨蚊 () 系列 金针菇 () 装置
+黄边巨蚊 () 系列 家幽灵蛛 () 软件
+
+紫腹巨蚊 () 系列 琼氏圆筛藻 () 软件 | 胖喵拼音输入法 pmim | √
+紫腹巨蚊 () 系列 穷人 () 实验室 | 胖喵穷人实验室 PM-PLab-E | √
+紫腹巨蚊 () 系列 脂肪细胞 () 工具 | 胖喵贪吃 pmbb | √
+紫腹巨蚊 () 系列 黑腹果蝇 () 库 | 胖喵安初 azi | √
+紫腹巨蚊 () 系列 拟南芥 () 软件
+紫腹巨蚊 () 系列 表皮葡萄球菌 () 引擎
+紫腹巨蚊 () 系列 陆地棉 () 系统
+紫腹巨蚊 () 系列 生菜 () 装置
+紫腹巨蚊 () 系列 大嘴乌鸦 () 装置
+```
+
+| 正式名称 | 简易名称 | 已发布 |
+| :------- | :------- | :----: |
+| `华丽巨蚊` (Toxorhynchites splendens) 系列 `兰花螳螂` (Hymenopus coronatus) 系统 | | |
+| `华丽巨蚊` (Toxorhynchites splendens) 系列 `棒络新妇` (Trichonephila clavata) 装置 | | |
+| `黄边巨蚊` (Toxorhynchites edwardsi) 系列 `金针菇` (Flammulina velutipes) 装置 | | |
+| `黄边巨蚊` (Toxorhynchites edwardsi) 系列 `家幽灵蛛` (Pholcus phalangioides) 软件 | | |
+| `紫腹巨蚊` (Toxorhynchites gravelyi) 系列 `琼氏圆筛藻` (Coscinodiscus jonesianus) 软件 | 胖喵拼音 (pmim) | √ |
+| `紫腹巨蚊` (Toxorhynchites gravelyi) 系列 穷人 (Poor people) 实验室 | 胖喵穷人实验室 (PM-PLab-E) | √ |
+| `紫腹巨蚊` (Toxorhynchites gravelyi) 系列 `脂肪细胞` (Fat cell) 工具 | 胖喵贪吃 (PMBB) | √ |
+| `紫腹巨蚊` (Toxorhynchites gravelyi) 系列 `黑腹果蝇` (Drosophila melanogaster) 库 | 胖喵安初 (azi) | √ |
+| `紫腹巨蚊` (Toxorhynchites gravelyi) 系列 `拟南芥` (Arabidopsis thaliana) 软件 | | |
+| `紫腹巨蚊` (Toxorhynchites gravelyi) 系列 `表皮葡萄球菌` (Staphylococcus epidermidis) 引擎 | | |
+| `紫腹巨蚊` (Toxorhynchites gravelyi) 系列 `陆地棉` (Gossypium hirsutum) 系统 | | |
+| `紫腹巨蚊` (Toxorhynchites gravelyi) 系列 `生菜` (Lactuca sativa) 装置 | | |
+| `紫腹巨蚊` (Toxorhynchites gravelyi) 系列 `大嘴乌鸦` (Corvus macrorhynchos) 装置 | | |
+
+TODO
