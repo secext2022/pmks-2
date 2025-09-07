@@ -2,93 +2,104 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="1024"
-   height="1024"
-   viewBox="0 0 1024 1024"
-   version="1.1"
-   id="svg5"
-   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
-   sodipodi:docname="secext2022-logo-1.svg"
-   inkscape:export-filename="secext2022-logo-1.png"
-   inkscape:export-xdpi="96"
-   inkscape:export-ydpi="96"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  width="1024"
+  height="1024"
+  viewBox="0 0 1024 1024"
+  version="1.1"
+  id="svg5"
+  inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+  sodipodi:docname="secext2022-logo-1.svg"
+  inkscape:export-filename="secext2022-logo-1.png"
+  inkscape:export-xdpi="96"
+  inkscape:export-ydpi="96"
+  xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+  xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:svg="http://www.w3.org/2000/svg"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:cc="http://creativecommons.org/ns#"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+>
   <title
-     id="title31">secext2022 logo 1</title>
+    id="title31"
+  >secext2022 logo 1</title>
   <sodipodi:namedview
-     id="namedview7"
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1.0"
-     inkscape:showpageshadow="2"
-     inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
-     inkscape:deskcolor="#d1d1d1"
-     inkscape:document-units="px"
-     showgrid="false"
-     inkscape:zoom="0.9131243"
-     inkscape:cx="301.16382"
-     inkscape:cy="562.35498"
-     inkscape:window-width="2560"
-     inkscape:window-height="1369"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
-     inkscape:window-maximized="1"
-     inkscape:current-layer="layer1" />
+    id="namedview7"
+    pagecolor="#ffffff"
+    bordercolor="#666666"
+    borderopacity="1.0"
+    inkscape:showpageshadow="2"
+    inkscape:pageopacity="0.0"
+    inkscape:pagecheckerboard="0"
+    inkscape:deskcolor="#d1d1d1"
+    inkscape:document-units="px"
+    showgrid="false"
+    inkscape:zoom="0.9131243"
+    inkscape:cx="301.16382"
+    inkscape:cy="562.35498"
+    inkscape:window-width="2560"
+    inkscape:window-height="1369"
+    inkscape:window-x="0"
+    inkscape:window-y="0"
+    inkscape:window-maximized="1"
+    inkscape:current-layer="layer1"
+  />
   <defs
-     id="defs2" />
+    id="defs2"
+  />
   <g
-     inkscape:label="1"
-     inkscape:groupmode="layer"
-     id="layer1"
-     style="display:inline"
-     sodipodi:insensitive="true">
+    inkscape:label="1"
+    inkscape:groupmode="layer"
+    id="layer1"
+    style="display: inline"
+    sodipodi:insensitive="true"
+  >
     <rect
-       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:97.653;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
-       id="rect148"
-       width="1024"
-       height="1024"
-       x="0"
-       y="0"
-       sodipodi:insensitive="true" />
+      style="opacity: 1; fill: #ffffff; fill-opacity: 1; stroke: none; stroke-width: 97.653; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: none"
+      id="rect148"
+      width="1024"
+      height="1024"
+      x="0"
+      y="0"
+      sodipodi:insensitive="true"
+    />
   </g>
   <g
-     inkscape:groupmode="layer"
-     id="layer2"
-     inkscape:label="2"
-     sodipodi:insensitive="true">
+    inkscape:groupmode="layer"
+    id="layer2"
+    inkscape:label="2"
+    sodipodi:insensitive="true"
+  >
     <rect
-       style="opacity:1;fill:#36d2fb;fill-opacity:1;stroke:none;stroke-width:97.653;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
-       id="rect942"
-       width="256"
-       height="256"
-       x="384"
-       y="192"
-       rx="64"
-       ry="64"
-       sodipodi:insensitive="true" />
+      style="opacity: 1; fill: #36d2fb; fill-opacity: 1; stroke: none; stroke-width: 97.653; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: none"
+      id="rect942"
+      width="256"
+      height="256"
+      x="384"
+      y="192"
+      rx="64"
+      ry="64"
+      sodipodi:insensitive="true"
+    />
     <rect
-       style="opacity:1;fill:#f9acb6;fill-opacity:1;stroke:none;stroke-width:97.653;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
-       id="rect942-3"
-       width="256"
-       height="256"
-       x="384"
-       y="640"
-       rx="64"
-       ry="64"
-       sodipodi:insensitive="true" />
+      style="opacity: 1; fill: #f9acb6; fill-opacity: 1; stroke: none; stroke-width: 97.653; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: none"
+      id="rect942-3"
+      width="256"
+      height="256"
+      x="384"
+      y="640"
+      rx="64"
+      ry="64"
+      sodipodi:insensitive="true"
+    />
   </g>
   <metadata
-     id="metadata29">
+    id="metadata29"
+  >
     <rdf:RDF>
       <cc:Work
-         rdf:about="">
+        rdf:about=""
+      >
         <dc:title>secext2022 logo 1</dc:title>
         <dc:date>2023-02-17</dc:date>
         <dc:creator>
@@ -98,22 +109,30 @@
         </dc:creator>
         <dc:identifier>secext2022-logo-1</dc:identifier>
         <cc:license
-           rdf:resource="http://creativecommons.org/licenses/by-sa/4.0/" />
+          rdf:resource="http://creativecommons.org/licenses/by-sa/4.0/"
+        />
       </cc:Work>
       <cc:License
-         rdf:about="http://creativecommons.org/licenses/by-sa/4.0/">
+        rdf:about="http://creativecommons.org/licenses/by-sa/4.0/"
+      >
         <cc:permits
-           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+          rdf:resource="http://creativecommons.org/ns#Reproduction"
+        />
         <cc:permits
-           rdf:resource="http://creativecommons.org/ns#Distribution" />
+          rdf:resource="http://creativecommons.org/ns#Distribution"
+        />
         <cc:requires
-           rdf:resource="http://creativecommons.org/ns#Notice" />
+          rdf:resource="http://creativecommons.org/ns#Notice"
+        />
         <cc:requires
-           rdf:resource="http://creativecommons.org/ns#Attribution" />
+          rdf:resource="http://creativecommons.org/ns#Attribution"
+        />
         <cc:permits
-           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+          rdf:resource="http://creativecommons.org/ns#DerivativeWorks"
+        />
         <cc:requires
-           rdf:resource="http://creativecommons.org/ns#ShareAlike" />
+          rdf:resource="http://creativecommons.org/ns#ShareAlike"
+        />
       </cc:License>
     </rdf:RDF>
   </metadata>
