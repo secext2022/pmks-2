@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "stool_mcp_run": {
+      "command": "node",
+      "args": [
+        "../mcp-run/index.js"
+      ],
+      "env": {
+        "DEBUG": "0"
+      },
+      "disabled": false
+    }
+  }
+}

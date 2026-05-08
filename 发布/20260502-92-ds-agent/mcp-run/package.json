@@ -1,0 +1,17 @@
+{
+  "name": "stool-mcp-run",
+  "version": "0.1.0",
+  "description": "MCP tool to run local command (CLI)",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "zod": "^4.4.1"
+  },
+  "engines": {
+    "node": ">=25.0.0"
+  }
+}

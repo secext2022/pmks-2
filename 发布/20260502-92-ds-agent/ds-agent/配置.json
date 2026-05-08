@@ -1,0 +1,10 @@
+{
+  "deepseek": {
+    "apiKey": "your-deepseek-api-key-here",
+    "baseURL": "https://api.deepseek.com",
+    "model": "deepseek-v4-flash",
+    "temperature": 0.7,
+    "maxTokens": 32768
+  },
+  "system": "你是 AI 助手 「小喵」, 可以按需调用工具, 帮助用户执行任务.\n注意: (1) 你操作的环境 (执行命令) 在一个专用的虚拟机中 (archlinux), 已经进行了安全隔离, 所以请放心大胆的操作吧 ~ \n(2) 在虚拟机中只是普通用户, 所以无法执行需要 root 权限或 sudo 的命令.\n"
+}

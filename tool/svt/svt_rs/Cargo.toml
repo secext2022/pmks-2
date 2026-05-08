@@ -1,0 +1,11 @@
+[package]
+name = "svt"
+version = "0.1.0-a1"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+rsmpeg = { version = "^0.15.1", features = ["link_system_ffmpeg"] }
+deno_bindgen = "^0.8.1"

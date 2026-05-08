@@ -1,0 +1,133 @@
+variant: fcos
+version: 1.5.0
+passwd:
+  users:
+    - name: core
+      ssh_authorized_keys:
+        - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICHaotVMdOfQrHe4bEYtjAuzQr3LdIqYlDu0sgcKLXHD fc-server-202406
+    - name: pmlz
+    - name: fc-test
+      ssh_authorized_keys:
+        - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHCyRg9UBu1C3OH37Lke5xwSpiTPWKlUIg+wj3S6h1MR fc-server-test-202406
+storage:
+  filesystems:
+    - device: /dev/disk/by-partlabel/root
+      wipe_filesystem: true
+      label: root
+      format: btrfs
+      mount_options:
+        - compress=zstd
+  files:
+    - path: /etc/zincati/config.d/55-updates-strategy.toml
+      contents:
+        inline: |
+          [updates]
+          strategy = "periodic"
+          [[updates.periodic.window]]
+          days = [ "Tue", "Thu", "Sun" ]
+          start_time = "03:00"
+          length_minutes = 120
+
+    # mount: /mnt/data/d1
+    - path: /etc/systemd/system/var-mnt-data-d1.mount
+      contents:
+        inline: |
+          [Mount]
+          What=/dev/d202406a/d202406a1
+          Where=/var/mnt/data/d1
+          Type=btrfs
+          Options=compress=zstd,nosuid,nodev
+    - path: /etc/systemd/system/var-mnt-data-d1.automount
+      contents:
+        inline: |
+          [Automount]
+          Where=/var/mnt/data/d1
+          TimeoutIdleSec=2h
+
+          [Install]
+          WantedBy=local-fs.target
+    # mount: /mnt/data/d2
+    - path: /etc/systemd/system/var-mnt-data-d2.mount
+      contents:
+        inline: |
+          [Mount]
+          What=/dev/d202406b/d202406b1
+          Where=/var/mnt/data/d2
+          Type=btrfs
+          Options=compress=zstd,nosuid,nodev
+    - path: /etc/systemd/system/var-mnt-data-d2.automount
+      contents:
+        inline: |
+          [Automount]
+          Where=/var/mnt/data/d2
+          TimeoutIdleSec=2h
+
+          [Install]
+          WantedBy=local-fs.target
+
+    # ip: eno1
+    - path: /etc/systemd/network/10-eno1.network
+      contents:
+        inline: |
+          [Match]
+          Name=eno1
+
+          [Network]
+          DHCP=yes
+
+          [Address]
+          Address=192.168.31.2/24
+
+    # network-online.target for systemd --user
+    - path: /etc/systemd/user/network-online.target
+      contents:
+        inline: |
+          [Unit]
+          Description=Network online for systemd --user
+          Documentation=man:systemd.special(7)
+          Documentation=https://systemd.io/NETWORK_ONLINE
+          #After=network.target
+    - path: /etc/systemd/user/systemd-networkd-wait-online.service
+      contents:
+        inline: |
+          [Unit]
+          Description=Wait network online for systemd --user
+          Documentation=man:systemd-networkd-wait-online.service(8)
+          Before=network-online.target
+
+          [Service]
+          Type=oneshot
+          ExecStart=/usr/lib/systemd/systemd-networkd-wait-online
+          RemainAfterExit=yes
+
+          [Install]
+          WantedBy=network-online.target
+
+    # btrfs-scrub
+    - path: /etc/systemd/system/btrfs-scrub@.service
+      contents:
+        inline: |
+          [Unit]
+          Description=Btrfs scrub on %f
+          ConditionPathIsMountPoint=%f
+          RequiresMountsFor=%f
+
+          [Service]
+          Nice=19
+          IOSchedulingClass=idle
+          KillSignal=SIGINT
+          ExecStart=/usr/sbin/btrfs scrub start -B %f
+    - path: /etc/systemd/system/btrfs-scrub@.timer
+      contents:
+        inline: |
+          [Unit]
+          Description=Monthly Btrfs scrub on %f
+
+          [Timer]
+          OnCalendar=monthly
+          AccuracySec=1d
+          RandomizedDelaySec=1w
+          Persistent=true
+
+          [Install]
+          WantedBy=timers.target

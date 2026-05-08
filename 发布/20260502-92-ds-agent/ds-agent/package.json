@@ -1,0 +1,18 @@
+{
+  "name": "ds-agent",
+  "version": "0.1.0",
+  "description": "AI agent with MCP tools and deepseek API",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "openai": "^6.35.0",
+    "zod": "^4.4.2"
+  },
+  "engines": {
+    "node": ">=25.0.0"
+  }
+}
