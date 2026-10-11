@@ -211,31 +211,6 @@ storage:
 
           [Address]
           Address=192.168.31.213/24
-
-    # network-online.target for systemd --user
-    - path: /etc/systemd/user/network-online.target
-      contents:
-        inline: |
-          [Unit]
-          Description=Network online for systemd --user
-          Documentation=man:systemd.special(7)
-          Documentation=https://systemd.io/NETWORK_ONLINE
-          #After=network.target
-    - path: /etc/systemd/user/systemd-networkd-wait-online.service
-      contents:
-        inline: |
-          [Unit]
-          Description=Wait network online for systemd --user
-          Documentation=man:systemd-networkd-wait-online.service(8)
-          Before=network-online.target
-
-          [Service]
-          Type=oneshot
-          ExecStart=/usr/lib/systemd/systemd-networkd-wait-online
-          RemainAfterExit=yes
-
-          [Install]
-          WantedBy=network-online.target
 ```
 
 ----

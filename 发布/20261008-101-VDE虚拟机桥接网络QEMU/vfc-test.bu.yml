@@ -1,0 +1,7 @@
+# vfc-test.bu
+variant: fcos
+version: 1.7.0
+passwd:
+  users:
+    - name: core
+      password_hash: $y$j9T$SU5xA0.d.AcyujAYDDNaU/$t9tEl9wRW9JUYQZRSe/X3v5DjdlvQZytd5URXYsqQUB

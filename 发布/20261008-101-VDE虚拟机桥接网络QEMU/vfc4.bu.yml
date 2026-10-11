@@ -1,0 +1,57 @@
+# vfc4-202610.bu
+variant: fcos
+version: 1.7.0
+passwd:
+  users:
+    - name: core
+      ssh_authorized_keys:
+        - ssh-ed25519 TODO vfc4-core-20261008
+    - name: aghdns
+storage:
+  filesystems:
+    - device: /dev/disk/by-partlabel/root
+      wipe_filesystem: true
+      label: root
+      format: btrfs
+      mount_options:
+        - compress=zstd
+  files:
+    - path: /etc/zincati/config.d/55-updates-strategy.toml
+      contents:
+        inline: |
+          # vfc4-202610
+          [updates]
+          strategy = "periodic"
+          [[updates.periodic.window]]
+          days = [ "Tue", "Thu", "Sun" ]
+          start_time = "03:00"
+          length_minutes = 120
+
+    # enp0s3
+    - path: /etc/systemd/network/10-enp0s3.network
+      contents:
+        inline: |
+          [Match]
+          Name=enp0s3
+
+          [Network]
+          DHCP=yes
+          DNS=180.76.76.76
+
+          [Address]
+          Address=192.168.31.254/24
+    # enp0s8
+    - path: /etc/systemd/network/11-enp0s8.network
+      contents:
+        inline: |
+          [Match]
+          Name=enp0s8
+
+          [Network]
+          DHCP=yes
+
+    # TCP/UDP port 53
+    - path: /etc/sysctl.d/00-ip-port-53.conf
+      contents:
+        inline: |
+          net.ipv4.ip_unprivileged_port_start=53

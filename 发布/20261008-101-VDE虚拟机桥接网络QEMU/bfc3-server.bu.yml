@@ -1,0 +1,121 @@
+# bfc3-server.bu
+#
+# https://docs.fedoraproject.org/en-US/fedora-coreos/producing-ign/
+#
+# $ butane --version
+# Butane 2.27.0
+#
+variant: fcos
+version: 1.7.0
+passwd:
+  users:
+    - name: core
+      ssh_authorized_keys:
+        - ssh-ed25519 TODO bfc3-core
+    - name: b202609c
+    - name: vm1
+storage:
+  filesystems:
+    - device: /dev/disk/by-partlabel/root
+      wipe_filesystem: true
+      label: root
+      format: btrfs
+      mount_options:
+        - compress=zstd
+  files:
+    - path: /etc/zincati/config.d/55-updates-strategy.toml
+      contents:
+        inline: |
+          # bfc3
+          [updates]
+          strategy = "periodic"
+          [[updates.periodic.window]]
+          days = [ "Tue", "Thu", "Sun" ]
+          start_time = "03:00"
+          length_minutes = 120
+
+    # mount: /mnt/data/b3
+    - path: /etc/systemd/system/var-mnt-data-b3.mount
+      contents:
+        inline: |
+          [Mount]
+          What=/dev/sdb1
+          Where=/var/mnt/data/b3
+          Type=btrfs
+          Options=compress=zstd,nosuid,nodev
+    - path: /etc/systemd/system/var-mnt-data-b3.automount
+      contents:
+        inline: |
+          [Automount]
+          Where=/var/mnt/data/b3
+          TimeoutIdleSec=2h
+
+          [Install]
+          WantedBy=local-fs.target
+
+    # br0
+    - path: /etc/systemd/network/20-br0.netdev
+      contents:
+        inline: |
+          [NetDev]
+          Name=br0
+          Kind=bridge
+    - path: /etc/systemd/network/20-br0.network
+      contents:
+        inline: |
+          [Match]
+          Name=br0
+
+          [Link]
+          RequiredForOnline=yes
+
+          [Network]
+          DHCP=yes
+          DNS=180.76.76.76
+
+          [Address]
+          Address=192.168.31.42/24
+    # enp2s0
+    - path: /etc/systemd/network/21-enp2s0.network
+      contents:
+        inline: |
+          [Match]
+          Name=enp2s0
+
+          [Network]
+          Bridge=br0
+    # tap0
+    - path: /etc/systemd/network/30-tap0.network
+      contents:
+        inline: |
+          [Match]
+          Name=tap0
+
+          [Link]
+          RequiredForOnline=no
+
+          [Network]
+          Bridge=br0
+
+    # vde-vm1.service
+    - path: /etc/systemd/system/vde-vm1.service
+      contents:
+        inline: |
+          [Unit]
+          Description=VDE tap0 bridge for vm1
+
+          After=network-online.target
+
+          [Service]
+          Type=exec
+
+          ExecStartPre=-podman rm vde-vm1
+          ExecStart=podman run --rm --name=vde-vm1 --replace --privileged -v=${RUNTIME_DIRECTORY}:/vde-vm1:z -v=/etc/vde-vm1/group:/etc/group:z --device=/dev/net/tun --userns=host --network=host vde2-alpine /usr/bin/vde_switch -nostdin -sock /vde-vm1 -mod 660 -group vm1 -tap tap0
+
+          RestartSec=2s
+          Restart=always
+
+          RuntimeDirectory=vde-vm1
+
+          [Install]
+          WantedBy=multi-user.target
