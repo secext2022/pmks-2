@@ -1,0 +1,54 @@
+# prom2.bu 20261025
+#
+# $ butane --version
+# Butane 2.27.0
+#
+variant: fcos
+version: 1.7.0
+passwd:
+  users:
+    - name: core
+      ssh_authorized_keys:
+        - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFcxv9kZCDinNgE1qjEzaAwqrDakvtQyYnb/XckyjL// vm_prom2-(core)-{pc_s2l-(s2)}-20261025
+    - name: prom2
+      ssh_authorized_keys:
+        - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKU4UxMC9HjRoF+hU7f4feNsozj0emiqpDYv3WuSKlh+ vm_prom2-(prom2)-{pc_s2l-(s2)}-20261025
+    - name: grafana
+      ssh_authorized_keys:
+        - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN1nY/JNKEwbWBmaRAmY6+S9gKQkTds0vpl41r2+aJCJ vm_prom2-(grafana)-{pc_s2l-(s2)}-20261025
+    - name: client_exporter
+    - name: client_exporter_win
+    - name: client_prom
+    - name: node_exporter_ssh
+
+storage:
+  filesystems:
+    - device: /dev/disk/by-partlabel/root
+      wipe_filesystem: true
+      label: root
+      format: btrfs
+      mount_options:
+        - compress=zstd
+  files:
+    - path: /etc/zincati/config.d/55-updates-strategy.toml
+      contents:
+        inline: |
+          [updates]
+          strategy = "periodic"
+          [[updates.periodic.window]]
+          days = [ "Tue", "Thu", "Sun" ]
+          start_time = "03:00"
+          length_minutes = 120
+
+    # ip: enp0s3
+    - path: /etc/systemd/network/10-enp0s3.network
+      contents:
+        inline: |
+          [Match]
+          Name=enp0s3
+
+          [Network]
+          DHCP=yes
+
+          [Address]
+          Address=192.168.31.250/24
